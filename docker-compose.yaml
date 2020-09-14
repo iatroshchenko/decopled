@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  gateway-nginx:
+    build:
+      context: ./gateway/docker/development/nginx
+      dockerfile: gateway-nginx.Dockerfile
+    ports:
+      - "${FRONTEND_NGINX_PORT}:${FRONTEND_NGINX_PORT}"
+      - "${API_NGINX_PORT}:${API_NGINX_PORT}"
+    depends_on:
+      - frontend-nginx
+      - api-nginx
+  frontend-nginx:
+    build:
+      context: ./frontend/docker/development/nginx
+      dockerfile: frontend-nginx.Dockerfile
+    volumes:
+      - ./frontend:/app
+  api-nginx:
+    build:
+      context: ./api/docker/development/nginx
+      dockerfile: api-nginx.Dockerfile
+    volumes:
+      - ./api:/app
+    depends_on:
+      - api-php-fpm
+  api-php-fpm:
+    build:
+      context: ./api/docker/development/php-fpm
+      dockerfile: api-php-fpm.Dockerfile
+    volumes:
+      - ./api:/app
+

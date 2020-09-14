@@ -1,0 +1,26 @@
+version: "3.7"
+
+services:
+  gateway-nginx:
+    image: ${REGISTRY}/bidding_gateway:${IMAGE_TAG}
+    restart: always
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/html:/var/www/html:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - frontend-nginx
+      - api-nginx
+  frontend-nginx:
+    image: ${REGISTRY}/bidding_frontend-nginx:${IMAGE_TAG}
+    restart: always
+  api-nginx:
+    image: ${REGISTRY}/bidding_api-nginx:${IMAGE_TAG}
+    restart: always
+    depends_on:
+      - api-php-fpm
+  api-php-fpm:
+    image: ${REGISTRY}/bidding_api-php-fpm:${IMAGE_TAG}
+    restart: always

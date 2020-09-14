@@ -1,0 +1,6 @@
+.env
+/.idea
+/api/.idea
+/frontend/.idea
+/provision/ansible/hosts
+/provision/ansible/provision.yml
