@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
-header('Content-Type: application/json');
+require __DIR__ . '/../vendor/autoload.php';
+$container = require __DIR__ . '/../config/container.php';
 
-echo '{}';
+$app = (require __DIR__ . '/../config/app.php')($container);
+$app->run();

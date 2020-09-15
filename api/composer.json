@@ -1,0 +1,33 @@
+{
+    "name": "iatroshchenko/bidding",
+    "description": "Decoupled application",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Ivan Atroshchenko",
+            "email": "iatrodev@gmail.com"
+        }
+    ],
+    "config": {
+      "process-timeout": 0,
+      "sort-packages": true
+    },
+    "require": {
+        "php": "^7.4",
+        "php-di/php-di": "^6.2",
+        "slim/psr7": "^1.2",
+        "slim/slim": "^4.5",
+        "symfony/console": "^5.1"
+    },
+    "require-dev": {
+      "roave/security-advisories": "dev-master"
+    },
+    "autoload": {
+      "psr-4": {
+        "App\\": "src/"
+      }
+    },
+    "scripts": {
+      "console": "php bin/app.php --ansi"
+    }
+}

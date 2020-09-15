@@ -24,3 +24,9 @@ services:
   api-php-fpm:
     image: ${REGISTRY}/bidding_api-php-fpm:${IMAGE_TAG}
     restart: always
+    environment:
+      APP_DEBUG: 0
+      APP_ENV: prod
+  api-php-cli:
+    image: ${REGISTRY}/bidding_api-php-cli:${IMAGE_TAG}
+    restart: always
