@@ -50,7 +50,7 @@ build-api-php-fpm:
 	docker --log-level=debug build --pull --file=api/docker/production/php-fpm/api-php-fpm-prod.Dockerfile --tag=${REGISTRY}/bidding_api-php-fpm:${IMAGE_TAG} api
 
 build-api-php-cli:
-	docker --log-level=debug build --pull --file=api/docker/production/php-fpm/api-php-cli-prod.Dockerfile --tag=${REGISTRY}/bidding_api-php-cli:${IMAGE_TAG} api
+	docker --log-level=debug build --pull --file=api/docker/production/php-cli/api-php-cli-prod.Dockerfile --tag=${REGISTRY}/bidding_api-php-cli:${IMAGE_TAG} api
 
 try-build:
 	REGISTRY=localhost IMAGE_TAG=0 make build

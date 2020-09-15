@@ -30,3 +30,4 @@ services:
   api-php-cli:
     image: ${REGISTRY}/bidding_api-php-cli:${IMAGE_TAG}
     restart: always
+    tty: true
