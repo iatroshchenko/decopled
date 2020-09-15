@@ -1,10 +1,9 @@
 # Production php-cli Dockerfile. Building from api root folder -> index.php from here is "./public/index.php"
 
-FROM php:7.4-cli-alpine
+### First stage - temporary - get optimized vendors folder ###
+FROM php:7.4-cli-alpine AS temp
 
-COPY ./ /app
-
-COPY ./docker/production/php-cli/conf.d /usr/local/etc/php/conf.d
+RUN apk add unzip
 
 ENV COMPOSER_ALLOW_SUPERUSER 1
 
@@ -12,4 +11,27 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/bin --fil
   && composer global require hirak/prestissimo --no-plugins --no-scripts \
   && rm -rf /root/.composer/cache
 
-WORKDIR app
+WORKDIR /app
+
+## Prepare vendor folder
+COPY ./composer.json ./composer.lock ./
+
+RUN composer install --no-dev --prefer-dist --no-progress --no-suggest --optimize-autoloader \
+  && rm -rf /root/.composer/cache
+
+### Final stage ###
+FROM php:7.4-cli-alpine
+
+RUN docker-php-ext-install opcache
+
+RUN mv $PHP_INI_DIR/php.ini-production $PHP_INI_DIR/php.ini
+
+COPY ./docker/production/php-cli/conf.d /usr/local/etc/php/conf.d
+
+WORKDIR /app
+
+## Copy vendor folder
+COPY --from=temp /app ./
+
+## Copy rest of the files
+COPY ./ ./
