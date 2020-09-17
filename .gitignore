@@ -5,3 +5,5 @@
 /provision/ansible/hosts
 /provision/ansible/provision.yml
 /api/vendor
+/api/.phpcs-cache
+/api/.phplint-cache

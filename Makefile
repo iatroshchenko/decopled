@@ -30,6 +30,17 @@ cli-sh:
 api-composer-install:
 	docker exec bidding_api-php-cli_1 composer install
 
+api-lint:
+	docker exec bidding_api-php-cli_1 composer lint
+	docker exec bidding_api-php-cli_1 composer code-style-check
+
+api-lint-fix:
+	docker exec bidding_api-php-cli_1 composer code-style-fix
+
+api-analyze:
+	docker exec bidding_api-php-cli_1 composer code-analyze
+
+
 # BUILD SECTION
 
 build: build-gateway build-frontend build-api
