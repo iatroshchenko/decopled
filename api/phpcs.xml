@@ -2,7 +2,7 @@
 <ruleset name="App coding standardq">
   <arg value="p"/>
   <arg name="colors"/>
-  <arg name="cache" value=".phpcs-cache"/>
+  <arg name="cache" value="var/.phpcs-cache"/>
 
   <rule ref="PSR12"/>
   <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>

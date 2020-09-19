@@ -7,7 +7,7 @@ up-build: docker-up-build
 down: docker-down
 restart: down up
 rebuild: down up-build
-init: docker-down docker-pull docker-build docker-up api-composer-install
+init: cleanup docker-down docker-pull docker-build docker-up api-composer-install
 
 docker-up:
 	docker-compose up -d
@@ -25,21 +25,44 @@ docker-up-build:
 	docker-compose up --build -d
 
 cli-sh:
-	docker exec -it bidding_api-php-cli_1 /bin/sh
+	docker-compose run api-php-cli /bin/sh
 
 api-composer-install:
-	docker exec bidding_api-php-cli_1 composer install
+	docker-compose run api-php-cli composer install
 
 api-lint:
-	docker exec bidding_api-php-cli_1 composer lint
-	docker exec bidding_api-php-cli_1 composer code-style-check
+	docker-compose run api-php-cli composer lint
+	docker-compose run api-php-cli composer code-style-check
 
 api-lint-fix:
-	docker exec bidding_api-php-cli_1 composer code-style-fix
+	docker-compose run api-php-cli composer code-style-fix
 
 api-analyze:
-	docker exec bidding_api-php-cli_1 composer code-analyze
+	docker-compose run api-php-cli composer code-analyze
 
+# TEST SECTION
+test: api-test
+
+api-test:
+	docker-compose run api-php-cli composer test
+
+api-test-unit:
+	docker-compose run api-php-cli composer test -- --testsuite=unit
+
+api-test-func:
+	docker-compose run api-php-cli composer test -- --testsuite=functional
+
+api-test-coverage-unit:
+	docker-compose run api-php-cli composer test -- --testsuite=unit --coverage-html var/coverage
+
+api-test-coverage-func:
+	docker-compose run api-php-cli composer test -- --testsuite=funcitonal --coverage-html var/coverage
+
+# CLEAN-UP SECTION
+cleanup: api-cleanup
+
+api-cleanup:
+	docker run --rm -v ${PWD}/api:/app -w /app alpine sh -c "rm -rf var/*"
 
 # BUILD SECTION
 

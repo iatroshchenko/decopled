@@ -1,0 +1,4 @@
+./coverage
+.phpcs-cache
+.phplint-cache
+.phpunit.result.cache

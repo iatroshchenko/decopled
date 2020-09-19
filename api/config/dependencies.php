@@ -23,4 +23,8 @@ $configs = array_map(
     $files
 );
 
+/*
+ * Structure will be like: [ [ common conf ] [ env-specific conf ] ]
+ * Then we run array_merge_recursive and env-specific will replace common
+ *  */
 return array_merge_recursive(...$configs);
