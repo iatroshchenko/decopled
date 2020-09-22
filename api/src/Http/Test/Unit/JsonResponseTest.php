@@ -2,14 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Test\Unit\Http;
+namespace App\Http\Test\Unit;
 
 use App\Http\JsonResponse;
 use PHPUnit\Framework\TestCase;
 
 /**
  * Class JsonResponseTest
- * @package Test\Unit\Http
  * @coversDefaultClass  \App\Http\JsonResponse
  */
 class JsonResponseTest extends TestCase
