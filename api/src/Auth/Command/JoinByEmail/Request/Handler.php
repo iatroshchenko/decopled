@@ -1,22 +1,22 @@
 <?php
 
 
-namespace App\Auth\Command\JoinByEmail\RequestStage;
+namespace App\Auth\Command\JoinByEmail\Request;
 
-use App\Auth\Repository\UserRepositoryInterface;
+use App\Auth\Repository\UserRepository;
 use App\Auth\Service\{Flusher, Tokenizer, JoinConfirmationSender, PasswordHasher};
 use App\Auth\Entity\User\{Id, Email, User, Token};
 
 class Handler
 {
-    private UserRepositoryInterface $users;
+    private UserRepository $users;
     private Flusher $flusher;
     private JoinConfirmationSender $sender;
     private Tokenizer $tokenizer;
     private PasswordHasher $hasher;
 
     public function __construct(
-        UserRepositoryInterface $users,
+        UserRepository $users,
         PasswordHasher $hasher,
         JoinConfirmationSender $sender,
         Tokenizer $tokenizer,

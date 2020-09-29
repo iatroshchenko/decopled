@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Auth\Command\JoinByEmail\RequestStage;
+namespace App\Auth\Command\JoinByEmail\Request;
 
 
 class Command
